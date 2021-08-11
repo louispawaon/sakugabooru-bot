@@ -12,10 +12,10 @@ array = client.artist_list(order="date") #Might change
 files = client.post_list(tags="order:random")
 
 #Change this later to make it more secure
-consumer_key = "B9Ak5QdKrUQQDTSHuwFg7Yh1V"
-consumer_secret="iV6QvTchyPINQgMPMTXcTT8XkM95BbhH7CEuxNGivFJVRCF6OZ"
-access_token = "1351695896170295297-XymMP0mZREWyuFJxSN3UBvSBN1wE0W"
-access_token_secret="GRy7MdXpTHhFdN2z5t9w767DkSGybPVjLqWjIv8anqtiz"
+consumer_key = ""
+consumer_secret=""
+access_token = ""
+access_token_secret=""
 
 for x in array:
     artistlist.append((x['name']))
@@ -33,8 +33,9 @@ def main():
         #print(filechoice)
         print(verdict)
         head = requests.head(boorurl)
+        #For filesize checking 
         '''
-        if(filesizechecker(head)):
+        if(filesizechecker(head)): 
             pass 
         '''
         data = requests.get(boorurl)
@@ -45,6 +46,8 @@ def main():
         posturl = siteurl+"{0}".format(filechoice['id'])#URL Print
     except:
         pass
+
+#Filesize Checker
 '''
 def filesizechecker(head):
     header = head.headers
@@ -52,6 +55,7 @@ def filesizechecker(head):
     if content_length and content_length > 3072:
         return False
 '''
+
 def filetypechecker(boorurl):
     if boorurl.find('/'):
             if ".mp4" in (boorurl.rsplit('/',1)[1]):
@@ -63,12 +67,22 @@ def mediapost():
     auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
     auth.set_access_token(access_token,access_token_secret)
     api = tweepy.API(auth)
-    #os.chdir('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files')
+    #Looking into how to upload properly using tweepy
+    '''
+    os.chdir('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files')
+    media_list=[]
+    for dirpath, dirnames, files in os.walk('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files'):
+        for f in files:
+            media_list.append(os.path.join(dirpath,f))
+    media = media[0]
+    api.media_upload(media)
+    '''
     try:
         for booru_file in os.listdir('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files'):
             api.media_upload(booru_file)
     except Exception as e:
         print(e)
+
 
 if __name__ == '__main__':
     main()
