@@ -12,8 +12,9 @@ files = client.post_list(tags="order:random")
 for x in array:
     artistlist.append((x['name']))
 
-#while (True):
+
 def main():
+    #while (True):
     try:
         choice = random.choice(artistlist)
         print(choice)
