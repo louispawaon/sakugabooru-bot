@@ -5,9 +5,9 @@ import time
 from pybooru import Moebooru
 
 artistlist=[]
-posturl='https://www.sakugabooru.com/post/show/'
+siteurl='https://www.sakugabooru.com/post/show/'
 client = Moebooru(site_url='https://www.sakugabooru.com')
-array = client.artist_list(order="date")
+array = client.artist_list(order="date") #Might change
 files = client.post_list(tags="order:random")
 for x in array:
     artistlist.append((x['name']))
@@ -16,20 +16,21 @@ for x in array:
 def main():
     #while (True):
     try:
-        choice = random.choice(artistlist)
+        choice = random.choice(artistlist) #Artist Name
         print(choice)
         files = client.post_list(tags="{}".format(choice))
         filechoice = random.choice(files) 
-        boorurl=filechoice['file_url'] #File Item Print
+        boorurl=filechoice['file_url'] #File Item
         verdict=filetypechecker(boorurl)
-        print(filechoice)
-        #print(verdict)
+        #print(filechoice)
+        print(verdict)
         '''
         data = requests.get(boorurl)
         with open("{}".format(filechoice['id'])+".mp4",'wb') as file:
             file.write(data.content)
         '''
-        print(posturl+"{0}".format(filechoice['id'])) #URL Print
+        posturl = siteurl+"{0}".format(filechoice['id'])#URL Print
+
     except:
         pass
 
