@@ -24,11 +24,10 @@ def main():
         verdict=filetypechecker(boorurl)
         #print(filechoice)
         print(verdict)
-        '''
         data = requests.get(boorurl)
-        with open("{}".format(filechoice['id'])+".mp4",'wb') as file:
+        with open("C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files/{}".format(filechoice['id'])+".mp4",'wb') as file: #Customize
             file.write(data.content)
-        '''
+        
         posturl = siteurl+"{0}".format(filechoice['id'])#URL Print
 
     except:
