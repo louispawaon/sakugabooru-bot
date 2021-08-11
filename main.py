@@ -19,9 +19,12 @@ try:
     files = client.post_list(tags="{}".format(choice))
     filechoice = random.choice(files) 
     boorurl=filechoice['file_url'] #File Item Print
-    booruid = filechoice['id']
+    print(filechoice)
+    '''
     r = requests.get(boorurl)
-    open('booruid.mp4','wb').write(r.content)
+    with open("{}".format(filechoice['id'])+".mp4",'wb') as file:
+        file.write(r.content)
+    '''
     print(posturl+"{0}".format(filechoice['id'])) #URL Print
 except:
     pass
