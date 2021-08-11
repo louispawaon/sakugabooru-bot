@@ -19,7 +19,12 @@ try:
     files = client.post_list(tags="{}".format(choice))
     filechoice = random.choice(files) 
     boorurl=filechoice['file_url'] #File Item Print
-    print(filechoice)
+    if boorurl.find('/'):
+        if ".mp4" not in (boorurl.rsplit('/',1)[1]):
+            print("hello")
+        else:
+            print("hi")
+    #print(filechoice)
     '''
     r = requests.get(boorurl)
     with open("{}".format(filechoice['id'])+".mp4",'wb') as file:
