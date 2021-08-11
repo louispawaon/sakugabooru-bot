@@ -32,13 +32,26 @@ def main():
         verdict=filetypechecker(boorurl)
         #print(filechoice)
         print(verdict)
+        head = requests.head(boorurl)
+        '''
+        if(filesizechecker(head)):
+            pass 
+        '''
         data = requests.get(boorurl)
         with open("C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files/{}".format(filechoice['id'])+".mp4",'wb') as file: #Customize
             file.write(data.content)
+        time.sleep(5)
+        mediapost()
         posturl = siteurl+"{0}".format(filechoice['id'])#URL Print
     except:
         pass
-
+'''
+def filesizechecker(head):
+    header = head.headers
+    content_length = header.get('content_length')
+    if content_length and content_length > 3072:
+        return False
+'''
 def filetypechecker(boorurl):
     if boorurl.find('/'):
             if ".mp4" in (boorurl.rsplit('/',1)[1]):
@@ -50,10 +63,12 @@ def mediapost():
     auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
     auth.set_access_token(access_token,access_token_secret)
     api = tweepy.API(auth)
-    os.chdir('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files')
-    for booru_file in os.listdir('.'):
-        api.update_with_media(booru_file)
+    #os.chdir('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files')
+    try:
+        for booru_file in os.listdir('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files'):
+            api.media_upload(booru_file)
+    except Exception as e:
+        print(e)
 
 if __name__ == '__main__':
     main()
-    mediapost()
