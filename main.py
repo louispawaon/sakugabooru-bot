@@ -22,12 +22,12 @@ def main():
         filechoice = random.choice(files) 
         boorurl=filechoice['file_url'] #File Item Print
         verdict=filetypechecker(boorurl)
-        #print(filechoice)
-        print(verdict)
+        print(filechoice)
+        #print(verdict)
         '''
-        r = requests.get(boorurl)
+        data = requests.get(boorurl)
         with open("{}".format(filechoice['id'])+".mp4",'wb') as file:
-            file.write(r.content)
+            file.write(data.content)
         '''
         print(posturl+"{0}".format(filechoice['id'])) #URL Print
     except:
