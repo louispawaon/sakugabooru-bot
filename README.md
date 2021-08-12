@@ -4,3 +4,19 @@
 
 All medias posted on SakugaBot are taken from <a href="https://www.sakugabooru.com/post">SAKUGABOORU</a>, one of the biggest <i>booru</i> sites across the Internet.
 </p>
+<br>
+<p>
+<h1>Tools and Libraries</h1>
+ - Python
+<br>
+- Requests
+<br>
+- OS Library
+<br>
+- Time Library
+<br>
+ - <a href="https://pybooru.readthedocs.io/en/stable/index.html">Pybooru</a>
+ <br>
+ - <a href="https://www.tweepy.org/">Tweepy</a>
+ <br>
+</p>
