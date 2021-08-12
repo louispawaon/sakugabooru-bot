@@ -12,14 +12,13 @@ array = client.artist_list(order="date") #Might change
 files = client.post_list(tags="order:random")
 for x in array:
     artistlist.append((x['name']))
-
+    
 api_keys = open("token.txt")
 lines = api_keys.readlines()
 consumer_key = lines[1].rstrip()
 consumer_secret= lines[4].rstrip()
 access_token = lines[7].rstrip() 
 access_token_secret=lines[10].rstrip()
-
 
 def main():
     #while (True):
@@ -68,20 +67,25 @@ def mediapost():
         auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
         auth.set_access_token(access_token,access_token_secret)
         api = tweepy.API(auth)
+        api.update_status('test tweet')
         #Looking into how to upload properly using tweepy
         #os.chdir('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files')
     except Exception as e:
         print (e)
+    
+    '''
     try:
         media_list=[]
         for dirpath, dirnames, files in os.walk('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files'):
             for f in files:
                 media_list.append(os.path.join(dirpath,f))
         media = media_list[0]
-        upload_media=api.media_upload(media)
-        api.update_status(status="test tweet", media_ids=[upload_media.media_id_string])
+        api.media_upload(media)
+        #upload_media=api.media_upload(media)
+        #api.update_status(status="test tweet", media_ids=[upload_media.media_id_string])
     except Exception as e:
         print(e)
+        '''
     '''
     try:
         for booru_file in os.listdir('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files'):
