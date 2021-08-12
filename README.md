@@ -20,3 +20,16 @@ All medias posted on SakugaBot are taken from <a href="https://www.sakugabooru.c
  - <a href="https://www.tweepy.org/">Tweepy</a>
  <br>
 </p>
+<br>
+
+<h1><b><i>Clone this Repository</i></b></h1>
+
+``` 
+git clone https://github.com/tremor6916/sakugabooru-bot.git
+```
+You need to create your own ``` token.txt``` with your appropriate API Keys that you got from Twitter.
+
+
+
+
+
