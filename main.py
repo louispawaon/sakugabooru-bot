@@ -64,18 +64,22 @@ def filetypechecker(boorurl):
                 pass
 
 def mediapost():
-    auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
-    auth.set_access_token(access_token,access_token_secret)
-    api = tweepy.API(auth)
-    #Looking into how to upload properly using tweepy
-    #os.chdir('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files')
+    try:
+        auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
+        auth.set_access_token(access_token,access_token_secret)
+        api = tweepy.API(auth)
+        #Looking into how to upload properly using tweepy
+        #os.chdir('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files')
+    except Exception as e:
+        print (e)
     try:
         media_list=[]
         for dirpath, dirnames, files in os.walk('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files'):
             for f in files:
                 media_list.append(os.path.join(dirpath,f))
         media = media_list[0]
-        api.media_upload(media)
+        upload_media=api.media_upload(media)
+        api.update_status(status="test tweet", media_ids=[upload_media.media_id_string])
     except Exception as e:
         print(e)
     '''
