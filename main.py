@@ -10,15 +10,15 @@ siteurl='https://www.sakugabooru.com/post/show/'
 client = Moebooru(site_url='https://www.sakugabooru.com')
 array = client.artist_list(order="date") #Might change
 files = client.post_list(tags="order:random")
-
-#Change this later to make it more secure
-consumer_key = ""
-consumer_secret=""
-access_token = ""
-access_token_secret=""
-
 for x in array:
     artistlist.append((x['name']))
+    
+api_keys = open("token.txt")
+lines = api_keys.readlines()
+consumer_key = lines[1].rstrip()
+consumer_secret= lines[4].rstrip()
+access_token = lines[7].rstrip() 
+access_token_secret=lines[10].rstrip()
 
 
 def main():
