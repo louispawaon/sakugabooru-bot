@@ -1,5 +1,5 @@
 import requests
-#import tweepy
+import tweepy
 import random
 import time
 import os
@@ -88,3 +88,6 @@ def mediapost():
 
 if __name__ == '__main__':
     main()
+
+#https://github.com/braian87b/tweepy - for video
+#https://stackoverflow.com/questions/51106363/tweet-mp4-files-with-tweepy solving video problem it
