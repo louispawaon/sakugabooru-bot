@@ -14,25 +14,18 @@ files = client.post_list(tags="{}".format(artistname),limit=5,page=1)#limit and 
 filechoice = random.choice(files)
 print("File: {0}".format(filechoice['file_url']))
 '''
-artistlist=[]
-posturl='https://www.sakugabooru.com/post/show/'
-client = Moebooru(site_url='https://www.sakugabooru.com')
-array=client.artist_list(order="date")
-files = client.post_list(tags="order:random")
-for x in array:
-    artistlist.append((x['name']))
+api_keys = open("token.txt")
+lines = api_keys.readlines()
+consumer_key = lines[1].rstrip()
+consumer_secret= lines[4].rstrip()
+access_token = lines[7].rstrip() 
+access_token_secret=lines[10].rstrip()
 
-#while True:
-try:
-    choice = random.choice(artistlist)
-    print(choice)
-    files = client.post_list(tags="{}".format(choice))
-    filechoice = random.choice(files)
-    print("File: {0}".format(filechoice['file_url']))
-    print(posturl+"{0}".format(filechoice['id']))
-except:
-    pass
+auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
+auth.set_access_token(access_token,access_token_secret)
+api = tweepy.API(auth)
 
+api.update_status(status="test tweet")
 #notes
     #make sure that the media will never duplicate 
     #random choice sa booru pagtapos search sa artistname?
