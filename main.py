@@ -7,11 +7,8 @@ from pybooru import Moebooru
 
 artistlist=[]
 siteurl='https://www.sakugabooru.com/post/show/'
-client = Moebooru(site_url='https://www.sakugabooru.com')
-array = client.artist_list(order="date") #Might change
+client = Moebooru(site_url='https://www.sakugabooru.com')#Might change
 files = client.post_list(tags="order:random")
-for x in array:
-    artistlist.append((x['name']))
     
 api_keys = open("token.txt")
 lines = api_keys.readlines()
