@@ -78,7 +78,6 @@ def mediapost():
             for f in files:
                 media_list.append(os.path.join(dirpath,f))
         media = media_list[0]
-        #api.media_upload(media)
         upload_media=api.media_upload(media)
         api.update_status(status="test tweet", media_ids=[upload_media.media_id_string])
     except Exception as e:
