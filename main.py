@@ -96,3 +96,4 @@ if __name__ == '__main__':
 
 #https://github.com/braian87b/tweepy - for video
 #https://stackoverflow.com/questions/51106363/tweet-mp4-files-with-tweepy solving video problem it
+#Change methodology for upload of video
