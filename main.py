@@ -71,7 +71,7 @@ def mediapost():
         #os.chdir('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files')
     except Exception as e:
         print (e)
-     
+   
     try:
         media_list=[]
         for dirpath, dirnames, files in os.walk('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files'):
@@ -82,18 +82,13 @@ def mediapost():
         api.update_status(status="test tweet", media_ids=[upload_media.media_id_string])
     except Exception as e:
         print(e)
-        
-    '''
-    try:
-        for booru_file in os.listdir('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files'):
-            api.media_upload(booru_file)
-    except Exception as e:
-        print(e)
-    '''
-
+       
 if __name__ == '__main__':
     main()
 
 #https://github.com/braian87b/tweepy - for video
 #https://stackoverflow.com/questions/51106363/tweet-mp4-files-with-tweepy solving video problem it
+
 #Change methodology for upload of video
+#Limit File Size
+#Change Search Method - annoying na af
