@@ -2,7 +2,11 @@ import requests
 import tweepy
 import random
 import time
+import os
+from selenium import webdriver
+from bs4 import BeautifulSoup
 from pybooru import Moebooru
+
 '''
 client = Moebooru(site_url='https://www.sakugabooru.com')
 pagenum=random.randint(1,10)
@@ -14,18 +18,26 @@ files = client.post_list(tags="{}".format(artistname),limit=5,page=1)#limit and 
 filechoice = random.choice(files)
 print("File: {0}".format(filechoice['file_url']))
 '''
-api_keys = open("token.txt")
-lines = api_keys.readlines()
-consumer_key = lines[1].rstrip()
-consumer_secret= lines[4].rstrip()
-access_token = lines[7].rstrip() 
-access_token_secret=lines[10].rstrip()
-
-auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
-auth.set_access_token(access_token,access_token_secret)
-api = tweepy.API(auth)
-
-api.update_status(status="test tweet")
+#chromedriver = "/Users/Admin/Documents/PersonalFiles/Repositories/chromedriver_win32/chromedriver.exe"
+#os.environ["webdriver.chrome.driver"]=chromedriver
+#driver = webdriver.Chrome(executable_path='C:/Users/Admin/Documents/PersonalFiles/Repositories/chromedriver_win32/chromedriver.exe')
+siteurl='https://www.sakugabooru.com/post/show/'
+client = Moebooru(site_url='https://www.sakugabooru.com')#Might change
+files = client.post_list(tags="order:random")
+#print(files)
+choice = random.choice(files) #Artist Name
+#print(choice)
+boorurl=choice['file_url']
+posturl = siteurl+"{0}".format(choice['id'])
+print(posturl)
+#html=requests.get(posturl).text
+#driver = webdriver.Chrome(posturl)
+#time.sleep(3)
+#html=driver.page_source
+#soup=BeautifulSoup(html,"html.parser")
+#div = soup.find('div',id="content")
+#print(soup.prettify())
+#print(div.string)
 #notes
     #make sure that the media will never duplicate 
     #random choice sa booru pagtapos search sa artistname?
