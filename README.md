@@ -19,6 +19,7 @@ All medias posted on SakugaBot are taken from <a href="https://www.sakugabooru.c
  <br>
  - <a href="https://www.tweepy.org/">Tweepy</a>
  <br>
+  - <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">BeautifulSoup</a>
 </p>
 <br>
 
