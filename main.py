@@ -27,7 +27,7 @@ def main():
         tags = choice['tags'] #Post Tags
         verdict=filetypechecker(boorurl)
         posturl = siteurl+"{0}".format(choice['id'])#URL Print
-        print(verdict)
+        #print(verdict)
         #head = requests.head(boorurl)
         #For filesize checking 
         '''
@@ -35,17 +35,19 @@ def main():
             pass 
         '''
         animatorname=artistgrabber(posturl)
-        '''
+        
         data = requests.get(boorurl)
-        with open("C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files/{}".format(filechoice['id'])+".mp4",'wb') as file: #Customize
+        with open("C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files/{}".format(choice['id'])+".mp4",'wb') as file: #Customize
             file.write(data.content)
         time.sleep(5)
-        '''
-        testpost(animatorname,tags,posturl)
-        #mediapost()
-    except:
-        pass
-
+        
+        params="Animator Name: {}\nTags: {}\nPost URL: {}\n".format(animatorname,tags,posturl)
+        #print(params)
+        #testpost(params)
+        mediapost(params)
+    except Exception as e:
+        print(e)
+        
 #Filesize Checker
 '''
 def filesizechecker(head):
@@ -69,7 +71,7 @@ def filetypechecker(boorurl):
             else:
                 pass
 
-def mediapost():
+def mediapost(params):
     try:
         auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
         auth.set_access_token(access_token,access_token_secret)
@@ -86,11 +88,11 @@ def mediapost():
                 media_list.append(os.path.join(dirpath,f))
         media = media_list[0]
         upload_media=api.media_upload(media)
-        api.update_status(status="test tweet", media_ids=[upload_media.media_id_string])
+        api.update_status(status=params, media_ids=[upload_media.media_id_string])
     except Exception as e:
         print(e)
        
-def testpost(animatorname,tags,posturl):
+def testpost(params):
     try:
         auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
         auth.set_access_token(access_token,access_token_secret)
@@ -101,7 +103,7 @@ def testpost(animatorname,tags,posturl):
         print (e)
 
     try:
-        api.update_status(status="Animator Name: {}Tags: {}Post URL: {} TestTweet".format(animatorname,tags,posturl))
+        api.update_status(status=params)
     except Exception as e:
         print (e)
 
