@@ -91,7 +91,7 @@ def mediapost(params):
         api.update_status(status=params, media_ids=[upload_media.media_id_string])
     except Exception as e:
         print(e)
-       
+'''       
 def testpost(params):
     try:
         auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
@@ -106,7 +106,7 @@ def testpost(params):
         api.update_status(status=params)
     except Exception as e:
         print (e)
-
+'''
 if __name__ == '__main__':
     main()
 
