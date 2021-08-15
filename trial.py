@@ -3,6 +3,9 @@ import tweepy
 import random
 import time
 import os
+import bs4
+from urllib.request import urlopen
+import json
 from selenium import webdriver
 from bs4 import BeautifulSoup
 from pybooru import Moebooru
@@ -24,12 +27,21 @@ print("File: {0}".format(filechoice['file_url']))
 siteurl='https://www.sakugabooru.com/post/show/'
 client = Moebooru(site_url='https://www.sakugabooru.com')#Might change
 files = client.post_list(tags="order:random")
-#print(files)
-choice = random.choice(files) #Artist Name
+choice = random.choice(files) #Artist Name#print(files)
 #print(choice)
 boorurl=choice['file_url']
+tags = choice['tags']
 posturl = siteurl+"{0}".format(choice['id'])
 print(posturl)
+r =requests.get(posturl)
+soup = bs4.BeautifulSoup(r.text,'lxml')
+
+for div in soup.find_all(class_="sidebar"):
+    artist=div.find(class_="tag-type-artist").text
+artist2=(artist.strip("? "))
+print(artist2)
+print("Tags:", tags)
+
 #html=requests.get(posturl).text
 #driver = webdriver.Chrome(posturl)
 #time.sleep(3)
