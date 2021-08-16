@@ -36,7 +36,7 @@ You need to create your own ``` token.txt``` with your appropriate API Keys that
 1. Tweepy gives out an ```Invalid file type for image: video/mp4``` error, what should I do?
 <br>
 <br>
-_Tweepy has merged a pull request with regards to uploading video/mp4 files using their library, but they haven't released an official release up to this day. You may want to head to the <a href="https://github.com/tweepy/tweepy">Official GitHub Repository of Tweepy</a> and follow the Installation Instructions below for you to have the latest development version._
+<i>Tweepy has merged a pull request with regards to uploading video/mp4 files using their library, but they haven't released an official release up to this day. You may want to head to the <a href="https://github.com/tweepy/tweepy">Official GitHub Repository of Tweepy</a> and follow the Installation Instructions below for you to have the latest development version.</i>
 <br>
 <br>
 
