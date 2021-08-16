@@ -4,6 +4,7 @@ import random
 import time
 import os
 import bs4
+import glob
 from bs4 import BeautifulSoup
 from pybooru import Moebooru
 
@@ -21,13 +22,12 @@ access_token_secret=lines[10].rstrip()
 def main():
     #while (True):
     try:
-        files = client.post_list(tags="order:random")#Random Post 
+        files = client.post_list(tags="order:random") #Random Post 
         choice = random.choice(files) #Select 1 Random Post from Query
         boorurl=choice['file_url'] #File URL
         tags = choice['tags'] #Post Tags
-        verdict=filetypechecker(boorurl)
+        verdict=filetypechecker(boorurl) #Checker if .mp4 file or not
         posturl = siteurl+"{0}".format(choice['id'])#URL Print
-        #print(verdict)
         #head = requests.head(boorurl)
         #For filesize checking 
         '''
@@ -39,11 +39,10 @@ def main():
         data = requests.get(boorurl)
         with open("C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files/{}".format(choice['id'])+".mp4",'wb') as file: #Customize
             file.write(data.content)
-        time.sleep(5)
         
         params="Animator Name: {}\nTags: {}\nPost URL: {}\n".format(animatorname,tags,posturl)
-        #print(params)
-        #testpost(params)
+
+        time.sleep(5)
         mediapost(params)
     except Exception as e:
         print(e)
@@ -76,29 +75,29 @@ def mediapost(params):
         auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
         auth.set_access_token(access_token,access_token_secret)
         api = tweepy.API(auth)
-        #Looking into how to upload properly using tweepy
-        #os.chdir('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files')
     except Exception as e:
         print (e)
-   
+       
     try:
-        media_list=[]
-        for dirpath, dirnames, files in os.walk('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files'):
-            for f in files:
-                media_list.append(os.path.join(dirpath,f))
-        media = media_list[0]
+        file_path=[]
+        directory_name='C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files'
+        media_list=filter(lambda x: os.path.isfile(os.path.join(directory_name,x)),os.listdir(directory_name))
+        media_list=sorted(media_list,key=lambda x: os.path.getmtime(os.path.join(directory_name,x)),reverse=True)
+        for media in media_list:
+            file_path.append(os.path.join(directory_name,media))       
+        media=file_path[0]
+        print(media)
         upload_media=api.media_upload(media)
         api.update_status(status=params, media_ids=[upload_media.media_id_string])
     except Exception as e:
-        print(e)
-'''       
+        print("exception:",e)
+
+'''    
 def testpost(params):
     try:
         auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
         auth.set_access_token(access_token,access_token_secret)
         api = tweepy.API(auth)
-        #Looking into how to upload properly using tweepy
-        #os.chdir('C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files')
     except Exception as e:
         print (e)
 
@@ -110,9 +109,6 @@ def testpost(params):
 if __name__ == '__main__':
     main()
 
-#https://github.com/braian87b/tweepy - for video
-#https://stackoverflow.com/questions/51106363/tweet-mp4-files-with-tweepy solving video problem it
-
 #Change methodology for upload of video
 #Limit File Size
-#Change Search Method - annoying na af
+#attempt ug 2 min cooldown
