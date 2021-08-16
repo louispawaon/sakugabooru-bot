@@ -4,12 +4,11 @@ import random
 import time
 import os
 import bs4
-import glob
 from bs4 import BeautifulSoup
 from pybooru import Moebooru
 
 siteurl='https://www.sakugabooru.com/post/show/'
-client = Moebooru(site_url='https://www.sakugabooru.com')#Might change
+client = Moebooru(site_url='https://www.sakugabooru.com')
 files = client.post_list(tags="order:random")
     
 api_keys = open("token.txt")
@@ -20,32 +19,34 @@ access_token = lines[7].rstrip()
 access_token_secret=lines[10].rstrip()
 
 def main():
-    #while (True):
-    try:
-        files = client.post_list(tags="order:random") #Random Post 
-        choice = random.choice(files) #Select 1 Random Post from Query
-        boorurl=choice['file_url'] #File URL
-        tags = choice['tags'] #Post Tags
-        verdict=filetypechecker(boorurl) #Checker if .mp4 file or not
-        posturl = siteurl+"{0}".format(choice['id'])#URL Print
-        #head = requests.head(boorurl)
-        #For filesize checking 
-        '''
-        if(filesizechecker(head)): 
-            pass 
-        '''
-        animatorname=artistgrabber(posturl)
-        
-        data = requests.get(boorurl)
-        with open("C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files/{}".format(choice['id'])+".mp4",'wb') as file: #Customize
-            file.write(data.content)
-        
-        params="Animator Name: {}\nTags: {}\nPost URL: {}\n".format(animatorname,tags,posturl)
+    while (True):
+        try:
+            files = client.post_list(tags="order:random") #Random Post 
+            choice = random.choice(files) #Select 1 Random Post from Query
+            boorurl=choice['file_url'] #File URL
+            tags = choice['tags'] #Post Tags
+            verdict=filetypechecker(boorurl) #Checker if .mp4 file or not
+            if(verdict):
+                posturl = siteurl+"{0}".format(choice['id'])#URL Print
+                #head = requests.head(boorurl)
+                #For filesize checking 
+                '''
+                if(filesizechecker(head)): 
+                    pass 
+                '''
+                animatorname=artistgrabber(posturl)
+                
+                data = requests.get(boorurl)
+                with open("C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files/{}".format(choice['id'])+".mp4",'wb') as file: #Customize
+                    file.write(data.content)
+                
+                params="Animator Name: {}\nTags: {}\nPost URL: {}\n".format(animatorname,tags,posturl)
 
-        time.sleep(5)
-        mediapost(params)
-    except Exception as e:
-        print(e)
+                time.sleep(5)
+                mediapost(params)
+        except Exception as e:
+            print("Main() Error:",e)
+        
         
 #Filesize Checker
 '''
@@ -68,7 +69,7 @@ def filetypechecker(boorurl):
             if ".mp4" in (boorurl.rsplit('/',1)[1]):
                 return True
             else:
-                pass
+                return False
 
 def mediapost(params):
     try:
@@ -90,7 +91,7 @@ def mediapost(params):
         upload_media=api.media_upload(media)
         api.update_status(status=params, media_ids=[upload_media.media_id_string])
     except Exception as e:
-        print("exception:",e)
+        print("Mediapost() Error:",e)
 
 '''    
 def testpost(params):
