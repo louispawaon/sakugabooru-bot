@@ -1,4 +1,4 @@
-![https://twitter.com/BotSakuga](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white&url=https%3A%2F%2Ftwitter.com%2FBotSakuga)
+<a href="https://twitter.com/BotSakuga"><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white"></img></a>
 <h1><i><b><a href="https://twitter.com/BotSakuga">SakugaBot</a></b></i></h1>
 <p>
 <b>SakugaBot</b> is a Twitter bot dedicated for <a href="https://www.liveabout.com/sakuga-animation-in-anime-144807">sakuga animation</a> and its glorious beauty. I've seen countless Anime Twitter Accounts posting images and videos related to anime but I haven't seen any attempts of producing a bot that would regularly post sakuga videos on Twitter, other than <a href="https://twitter.com/randomsakuga">@randomsakuga</a>, one of the biggest anime accounts in social media. So I took it as a challenge for myself to recreate a bot that would handle such capabilities.
