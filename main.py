@@ -2,6 +2,7 @@ import requests
 import tweepy
 import random
 import time
+import schedule
 import os
 import bs4
 from bs4 import BeautifulSoup
@@ -19,7 +20,6 @@ access_token = lines[7].rstrip()
 access_token_secret=lines[10].rstrip()
 
 def main():
-    while (True):
         try:
             files = client.post_list(tags="order:random") #Random Post 
             choice = random.choice(files) #Select 1 Random Post from Query
@@ -35,8 +35,10 @@ def main():
                     pass 
                 '''
                 animatorname=artistgrabber(posturl)
+                time.sleep(5)
                 
-                data = requests.get(boorurl)
+                data = requests.get(boorurl,headers={'user-agent': 'Mozilla/5.0'},timeout=5)
+                print("data:",data.status_code)
                 with open("C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files/{}".format(choice['id'])+".mp4",'wb') as file: #Customize
                     file.write(data.content)
                 
@@ -46,8 +48,7 @@ def main():
                 mediapost(params)
         except Exception as e:
             print("Main() Error:",e)
-        
-        
+           
 #Filesize Checker
 '''
 def filesizechecker(head):
@@ -57,7 +58,8 @@ def filesizechecker(head):
         return False
 '''
 def artistgrabber(posturl):
-    r =requests.get(posturl)
+    r =requests.get(posturl,headers={'user-agent': 'Mozilla/5.0'}, timeout=5)
+    print("artistgrabber:",r.status_code)
     soup = bs4.BeautifulSoup(r.text,'lxml')
     for div in soup.find_all(class_="sidebar"):
         artist=div.find(class_="tag-type-artist").text
@@ -88,11 +90,12 @@ def mediapost(params):
             file_path.append(os.path.join(directory_name,media))       
         media=file_path[0]
         print(media)
-        upload_media=api.media_upload(media)
+        upload_media=api.media_upload(media, media_category='tweet_video')
         api.update_status(status=params, media_ids=[upload_media.media_id_string])
     except Exception as e:
         print("Mediapost() Error:",e)
-
+schedule.every(45).minutes.do(main)
+#schedule.every(45).seconds.do(main)
 '''    
 def testpost(params):
     try:
@@ -108,7 +111,9 @@ def testpost(params):
         print (e)
 '''
 if __name__ == '__main__':
-    main()
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 #Change methodology for upload of video
 #Limit File Size
