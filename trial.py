@@ -41,7 +41,29 @@ for div in soup.find_all(class_="sidebar"):
 artist2=(artist.strip("? "))
 print(artist2)
 print("Tags:", tags)
+#Filesize Checker
+'''
+def filesizechecker(head):
+    header = head.headers
+    content_length = header.get('content_length')
+    if content_length and content_length > 3072:
+        return False
+'''
+#schedule.every(45).seconds.do(main)
+'''    
+def testpost(params):
+    try:
+        auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
+        auth.set_access_token(access_token,access_token_secret)
+        api = tweepy.API(auth)
+    except Exception as e:
+        print (e)
 
+    try:
+        api.update_status(status=params)
+    except Exception as e:
+        print (e)
+'''
 #html=requests.get(posturl).text
 #driver = webdriver.Chrome(posturl)
 #time.sleep(3)
@@ -63,3 +85,7 @@ print("Tags:", tags)
     #sa question about sa post url, try to use request module then dapat mag correlate ang xpath(?) sa 'file_url' na naa
     #check folder of downloads if same file/mp4, next random shit
     #since murag dile reliable ang artist tag i base nalang jud nako ni sa colored text sa kilid 
+
+#Change methodology for upload of video
+#Limit File Size
+#attempt ug 2 min cooldown
