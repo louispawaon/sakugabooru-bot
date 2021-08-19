@@ -2,7 +2,6 @@ import requests
 import tweepy
 import random
 import time
-import schedule
 import os
 import bs4
 from bs4 import BeautifulSoup
