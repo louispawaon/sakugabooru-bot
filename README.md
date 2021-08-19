@@ -47,7 +47,11 @@ You need to create your own ``` token.txt``` with your appropriate API Keys that
 <h1><b><i>Future Updates</i></b></h1>
 - Discord Buddy <br>
 - Performance Improvements <br>
-- Raspberry Pi Migration 
+- Raspberry Pi Migration <br>
+- and more
+<br>
+<br>
+If any issues arise, you may post a new issue <a href="https://github.com/tremor6916/sakugabooru-bot/issues">here</a>. This is still a work in progress and will keep on updating this up to its optimal state. 
 
 
 
