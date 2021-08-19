@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 from pybooru import Moebooru
 
 siteurl='https://www.sakugabooru.com/post/show/'
+header = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36'}
 client = Moebooru(site_url='https://www.sakugabooru.com')
 files = client.post_list(tags="order:random")
      
@@ -32,7 +33,7 @@ def main():
                 animatorname=artistgrabber(posturl)
                 time.sleep(5)
                 
-                data = requests.get(boorurl,headers={'user-agent': 'Mozilla/5.0'},timeout=5)
+                data = requests.get(boorurl,headers=header)
                 print("data:",data.status_code)
                 with open("C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files/{}".format(choice['id'])+".mp4",'wb') as file: #Customize Directory
                     file.write(data.content)
@@ -46,11 +47,11 @@ def main():
             print("Main() Error:",e)
            
 def artistgrabber(posturl):
-    r = requests.get(posturl,headers={'user-agent': 'Mozilla/5.0'}, timeout=5)
+    r = requests.get(posturl,headers=header)
     print("artistgrabber:",r.status_code)
     soup = bs4.BeautifulSoup(r.text,'lxml')
 
-    for div in soup.find_all(class_="sidebar"):
+    for div in soup.find_all(class_="sidebar"): 
         artist=div.find(class_="tag-type-artist").text
     artistname=(artist.strip("? "))
 
@@ -89,9 +90,5 @@ def mediapost(params):
     except Exception as e:
         print("Mediapost() Error:",e)
         
-schedule.every(45).minutes.do(main)
-
 if __name__ == '__main__':
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    main()
