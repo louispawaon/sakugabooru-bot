@@ -30,6 +30,7 @@ def main():
                 posturl = siteurl+"{0}".format(choice['id']) #POST URL from SakugaBooru
 
                 animatorname=artistgrabber(posturl)
+                animename=animegrabber(posturl)
                 time.sleep(5)
                 
                 data = requests.get(boorurl,headers=header)
@@ -37,8 +38,12 @@ def main():
                 with open("C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files/{}".format(choice['id'])+".mp4",'wb') as file: #Customize Directory
                     file.write(data.content)
                 
-                params="Animator Name: {}\nTags: {}\nPost URL: {}\n".format(animatorname,tags,posturl)
+                #params="Animator Name: {}\nTags: {}\nPost URL: {}\n".format(animatorname,tags,posturl)
 
+                #BETA TESTING
+                params="Animator Name: {}\nListed Anime Name: {}\nTags: {}\nPost URL: {}\n".format(animatorname,animename,tags,posturl)
+                #print(params)
+                
                 time.sleep(5)
                 mediapost(params)
 
@@ -49,12 +54,32 @@ def artistgrabber(posturl):
     r = requests.get(posturl,headers=header)
     print("artistgrabber:",r.status_code)
     soup = bs4.BeautifulSoup(r.text,'lxml')
-
+    '''
     for div in soup.find_all(class_="sidebar"): 
         artist=div.find(class_="tag-type-artist").text
     artistname=(artist.strip("? "))
+    '''
+    for div in soup.find_all(class_="tag-type-artist"):
+        atags = div.find_all('a')
+    for artists in atags:
+        artiststr=artists.text
+    print(artiststr)
 
-    return artistname
+    return artiststr
+
+#BETA TESTING
+def animegrabber(posturl):
+    r = requests.get(posturl,headers=header)
+    print("animegrabber:",r.status_code)
+    soup = bs4.BeautifulSoup(r.text,'lxml')
+    
+    for div in soup.find_all(class_="tag-type-copyright"): 
+        atags = div.find_all('a')
+        for anime in atags:
+            animestr=anime.text
+    print(animestr)
+
+    return animestr
 
 def filetypechecker(boorurl):
     if boorurl.find('/'):
