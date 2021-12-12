@@ -9,6 +9,17 @@
 <b>SakugaBot</b> is a Twitter bot dedicated for <a href="https://www.liveabout.com/sakuga-animation-in-anime-144807">sakuga animation</a> and its glorious beauty. I've seen countless Anime Twitter Accounts posting images and videos related to anime but I haven't seen any attempts of producing a bot that would regularly post sakuga videos on Twitter, other than <a href="https://twitter.com/randomsakuga">@randomsakuga</a>, one of the biggest anime accounts in social media. So I took it as a challenge for myself to recreate a bot that would handle such capabilities.
 
 All medias posted on SakugaBot are taken from <a href="https://www.sakugabooru.com/post">SAKUGABOORU</a>, one of the biggest <i>booru</i> sites across the Internet.
+
+ to be released next week
+<h2><b><i>Updates</i></b></h2>
+
+    UPDATE v.1.0.0: 
+      - Initial Release
+  
+    UPDATE v.1.0.1: 
+      - Removed the number of posts related to the animator
+      - Added a new feature for the listed anime title given by SakugaBooru
+
 </p>
 <br>
 <p>
@@ -45,10 +56,9 @@ You need to create your own ``` token.txt``` with your appropriate API Keys that
 
 <br>
 <h1><b><i>Future Updates</i></b></h1>
-- Discord Buddy <br>
+- ~~Discord Buddy~~ (Scrapped) <br>
+- ~~Raspberry Pi Migration~~ (Scrapped) <br>
 - Performance Improvements <br>
-- Raspberry Pi Migration <br>
-- and more
 <br>
 <br>
 If any issues arise, you may post a new issue <a href="https://github.com/tremor6916/sakugabooru-bot/issues">here</a>. This is still a work in progress and will keep on updating this up to its optimal state. 
