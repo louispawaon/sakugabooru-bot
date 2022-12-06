@@ -1,3 +1,5 @@
+#Update 12-2022: Refactoring Sooon to accomodate full automation using asynchronous tasks
+
 import requests
 import tweepy
 import random
@@ -11,7 +13,9 @@ siteurl='https://www.sakugabooru.com/post/show/'
 header = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36'}
 client = Moebooru(site_url='https://www.sakugabooru.com')
 files = client.post_list(tags="order:random")
-     
+
+
+#12-2022: Update API Key handling (put in env files)    
 api_keys = open("token.txt") #Create your own token.txt file with your API Keys from Twitter
 lines = api_keys.readlines()
 consumer_key = lines[1].rstrip()
@@ -54,11 +58,6 @@ def artistgrabber(posturl):
     r = requests.get(posturl,headers=header)
     print("artistgrabber:",r.status_code)
     soup = bs4.BeautifulSoup(r.text,'lxml')
-    '''
-    for div in soup.find_all(class_="sidebar"): 
-        artist=div.find(class_="tag-type-artist").text
-    artistname=(artist.strip("? "))
-    '''
     for div in soup.find_all(class_="tag-type-artist"):
         atags = div.find_all('a')
     for artists in atags:
@@ -99,6 +98,7 @@ def mediapost(params):
        
     try:
         file_path=[]
+        #12-2022: Update Directory Placement 
         directory_name='C:/Users/Admin/Documents/PersonalFiles/Repositories/sakugabooru-video-files' #Customize Directory
         media_list=filter(lambda x: os.path.isfile(os.path.join(directory_name,x)),os.listdir(directory_name))
         media_list=sorted(media_list,key=lambda x: os.path.getmtime(os.path.join(directory_name,x)),reverse=True)
