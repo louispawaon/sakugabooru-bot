@@ -1,7 +1,6 @@
-#Update 12-2022: Refactoring Sooon to accomodate full automation using asynchronous tasks
-
 import requests
 import tweepy
+import schedule
 import random
 import time
 import os
@@ -19,6 +18,7 @@ client = Moebooru(site_url='https://www.sakugabooru.com')
 files = client.post_list(tags="order:random")
 
 def boorurandom():
+        print("Hello!")
         try:
             files = client.post_list(tags="order:random") #Random Post 
             choice = random.choice(files) #Select 1 Random Post from Query
@@ -100,3 +100,8 @@ def mediapost(params):
         
 if __name__ == '__main__':
     boorurandom()
+    schedule.every(45).minutes.do(boorurandom)
+    
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
