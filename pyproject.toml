@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "sakugabooru-bot"
+version = "1.0.2"
+description = "twitter bot dedicated for sakuga animation"
+authors = ["tremor6916 <lpawaon@gmail.com>"]
+readme = "README.md"
+packages = [{include = "sakugabooru_bot"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.29.0"
+tweepy = "^4.14.0"
+beautifulsoup4 = "^4.12.2"
+pybooru = "^4.2.2"
+python-dotenv = "^1.0.0"
+schedule = "^1.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
